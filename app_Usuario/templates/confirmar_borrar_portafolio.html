@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block titulo %}Eliminar Portafolio | Investech{% endblock %} {# Título específico #}
+
+{% block contenido %}
+<div class="delete-confirmation"> {# Contenedor para el estilo #}
+    <h2>¿Estás seguro de que quieres borrar el portafolio "{{ portafolio.nombre }}"?</h2> {# Muestra el nombre del portafolio #}
+    <p class="warning-message">¡Advertencia! Esta acción eliminará permanentemente el portafolio de "{{ portafolio.usuario.nombre }} {{ portafolio.usuario.apellido }}". Esta acción no se puede deshacer.</p> {# Advertencia más clara #}
+    <form method="post">
+        {% csrf_token %}
+        <div class="actions">
+            <button type="submit" class="btn btn-danger">Sí, Borrar Portafolio</button> {# Botón de borrado #}
+            <a href="{% url 'app_Usuario:detalle_portafolio' portafolio.id %}" class="btn">Cancelar</a> {# Enlace para cancelar, regresa al detalle del portafolio #}
+        </div>
+    </form>
+</div>
+{% endblock %}

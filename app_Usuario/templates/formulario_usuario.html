@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ titulo }} | Investech{% endblock %} {# Título dinámico para el usuario #}
+
+{% block contenido %}
+<h2>{{ titulo }}</h2> {# 'titulo' se pasa desde la vista, puede ser 'Crear Usuario' o 'Editar Usuario' #}
+<form method="post" enctype="multipart/form-data" class="form-styled">
+    {% csrf_token %} {# Token de seguridad requerido por Django para formularios POST #}
+    
+    {# Mostrar errores no relacionados con campos específicos #}
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% for field in form %}
+        <div class="form-group">
+            {{ field.label_tag }} {# Muestra la etiqueta del campo #}
+            {{ field }} {# Muestra el widget del campo (input, textarea, etc.) #}
+            {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+                <ul class="errorlist">
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <div class="actions">
+        <button type="submit" class="btn btn-primary">Guardar Usuario</button> {# Texto del botón #}
+        <a href="{% url 'app_Usuario:listar_usuarios' %}" class="btn">Cancelar</a> {# Enlace para cancelar y volver a la lista de usuarios #}
+    </div>
+</form>
+{% endblock %}

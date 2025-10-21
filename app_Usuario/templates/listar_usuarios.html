@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block titulo %}Usuarios | Investech{% endblock %} {# Cambiado el título de la página #}
+
+{% block contenido %}
+<div class="page-header">
+    <h2>Usuarios Registrados</h2> {# Título de la sección #}
+    <a href="{% url 'app_Usuario:crear_usuario' %}" class="btn btn-primary">+ Agregar Usuario</a> {# Enlace para agregar usuario #}
+</div>
+
+<ul class="user-grid"> {# Cambiado a 'user-grid' para CSS #}
+    {% for usuario in usuarios %} {# Iterando sobre 'usuarios' #}
+    <li class="user-card"> {# Cambiado a 'user-card' para CSS #}
+        <a href="{% url 'app_Usuario:detalle_usuario' usuario.id %}">
+            {% if usuario.foto_perfil %} {# Usando 'foto_perfil' del modelo Usuario #}
+                <img src="{{ usuario.foto_perfil.url }}" alt="Foto de {{ usuario.nombre }}" class="user-img"> {# Cambiado a 'user-img' #}
+            {% else %}
+                <div class="user-placeholder">👤</div> {# Icono de usuario #}
+            {% endif %}
+            <h3>{{ usuario.nombre }} {{ usuario.apellido }}</h3> {# Mostrar nombre y apellido #}
+            <p class="user-email">{{ usuario.email }}</p> {# Mostrar email #}
+        </a>
+    </li>
+    {% empty %}
+    <li class="no-users">No hay usuarios registrados.</li> {# Mensaje si no hay usuarios #}
+    {% endfor %}
+</ul>
+{% endblock %}

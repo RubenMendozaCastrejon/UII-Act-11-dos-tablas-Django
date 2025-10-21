@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block titulo %}Eliminar Usuario | Investech{% endblock %} {# Título específico #}
+
+{% block contenido %}
+<div class="delete-confirmation"> {# Contenedor para el estilo #}
+    <h2>¿Estás seguro de que quieres borrar a "{{ usuario.nombre }} {{ usuario.apellido }}"?</h2> {# Muestra el nombre y apellido del usuario #}
+    <p class="warning-message">¡Advertencia! Esta acción eliminará permanentemente al usuario y su portafolio asociado (si existe). Esta acción no se puede deshacer.</p> {# Advertencia más clara #}
+    <form method="post">
+        {% csrf_token %}
+        <div class="actions">
+            <button type="submit" class="btn btn-danger">Sí, Borrar Usuario</button> {# Botón de borrado #}
+            <a href="{% url 'app_Usuario:detalle_usuario' usuario.id %}" class="btn">Cancelar</a> {# Enlace para cancelar, regresa al detalle del usuario #}
+        </div>
+    </form>
+</div>
+{% endblock %}
