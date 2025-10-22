@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ titulo }} | InvestTech{% endblock %}
+
+{% block contenido %}
+<h2>{{ titulo }}</h2>
+<form method="post" class="form-styled">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="actions">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        {% if usuario %}
+            <a href="{% url 'app_Usuario:detalle_usuario' usuario.id_usuario %}" class="btn">Cancelar</a>
+        {% else %}
+            <a href="{% url 'app_Usuario:listar_usuarios' %}" class="btn">Cancelar</a>
+        {% endif %}
+    </div>
+</form>
+{% endblock %}

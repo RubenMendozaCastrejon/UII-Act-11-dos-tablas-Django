@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}InvestTech{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <header class="main-header">
+            <h1><a href="{% url 'app_Usuario:listar_usuarios' %}">💼 InvestTech</a></h1>
+            <nav class="main-nav">
+                <a href="{% url 'app_Usuario:listar_usuarios' %}">👥 Usuarios</a>
+                <a href="{% url 'app_Usuario:crear_usuario' %}">➕ Nuevo Usuario</a>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            {% block contenido %}{% endblock %}
+        </main>
+
+        <footer class="main-footer">
+            <p>© 2025 InvestTech - Sistema de Gestión de Portafolios</p>
+        </footer>
+    </div>
+</body>
+</html>

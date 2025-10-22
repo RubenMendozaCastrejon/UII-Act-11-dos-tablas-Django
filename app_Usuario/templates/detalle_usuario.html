@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ usuario.nombre }} {{ usuario.apellido }} | InvestTech{% endblock %}
+
+{% block contenido %}
+<article class="artist-detail">
+    <div class="artist-banner">
+        {% if usuario.foto %}
+            <img src="{{ usuario.foto.url }}" alt="Foto de {{ usuario.nombre }}" class="detail-photo">
+        {% else %}
+            <div class="detail-placeholder">👤</div>
+        {% endif %}
+        <div class="artist-info">
+            <h1>{{ usuario.nombre }} {{ usuario.apellido }}</h1>
+            <h3>{{ usuario.email }}</h3>
+            <p class="user-balance">Saldo: ${{ usuario.saldo }}</p>
+            <p class="user-status">Estado: {% if usuario.activo %}Activo{% else %}Inactivo{% endif %}</p>
+        </div>
+    </div>
+
+    <div class="detail-actions">
+        <a href="{% url 'app_Usuario:editar_usuario' usuario.id_usuario %}" class="btn btn-secondary">✏️ Editar</a>
+        <a href="{% url 'app_Usuario:borrar_usuario' usuario.id_usuario %}" class="btn btn-danger">🗑️ Borrar</a>
+        <a href="{% url 'app_Usuario:crear_portafolio' usuario.id_usuario %}" class="btn btn-primary">➕ Agregar Portafolio</a>
+    </div>
+
+    <section class="songs-section">
+        <h2>Portafolios</h2>
+        {% if portafolios %}
+        <ul class="song-list">
+            {% for portafolio in portafolios %}
+            <li class="portfolio-item">
+                <strong>{{ portafolio.nombre_port }}</strong>
+                <span class="portfolio-date">{{ portafolio.fecha }}</span>
+                <span class="portfolio-value">${{ portafolio.valor_total }}</span>
+                <p class="portfolio-description">{{ portafolio.descripcion }}</p>
+                <div class="portfolio-actions">
+                    <a href="{% url 'app_Usuario:editar_portafolio' portafolio.id_portafolio %}" class="btn-small">✏️ Editar</a>
+                    <a href="{% url 'app_Usuario:borrar_portafolio' portafolio.id_portafolio %}" class="btn-small btn-danger">🗑️ Borrar</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="empty-message">Este usuario no tiene portafolios registrados.</p>
+        {% endif %}
+    </section>
+</article>
+{% endblock %}

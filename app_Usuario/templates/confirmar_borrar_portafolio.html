@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block titulo %}Eliminar Portafolio | InvestTech{% endblock %}
+
+{% block contenido %}
+<h2>¿Estás seguro de que quieres borrar el portafolio "{{ portafolio.nombre_port }}"?</h2>
+<p>Esta acción no se puede deshacer.</p>
+<form method="post">
+    {% csrf_token %}
+    <div class="actions">
+        <button type="submit" class="btn btn-danger">Sí, Borrar</button>
+        <a href="{% url 'app_Usuario:detalle_usuario' portafolio.id_usuario.id_usuario %}" class="btn">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block titulo %}Usuarios | InvestTech{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <h2>Usuarios Registrados</h2>
+    <a href="{% url 'app_Usuario:crear_usuario' %}" class="btn btn-primary">+ Agregar Usuario</a>
+</div>
+
+<ul class="artist-grid">
+    {% for usuario in usuarios %}
+    <li class="artist-card">
+        <a href="{% url 'app_Usuario:detalle_usuario' usuario.id_usuario %}">
+            {% if usuario.foto %}
+                <img src="{{ usuario.foto.url }}" alt="Foto de {{ usuario.nombre }}" class="artist-img">
+            {% else %}
+                <div class="artist-placeholder">👤</div>
+            {% endif %}
+            <h3>{{ usuario.nombre }} {{ usuario.apellido }}</h3>
+            <p class="artist-nationality">{{ usuario.email }}</p>
+        </a>
+    </li>
+    {% empty %}
+    <li class="no-artists">No hay usuarios registrados.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
